@@ -1,6 +1,7 @@
-import { NgModule }      from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'angular2-modal';
 
 import { SharedModule } from './shared.module';
@@ -8,11 +9,10 @@ import { BootstrapDemoModule } from './bootstrap-demo/bootstrap-demo.module';
 import { VexDemoModule } from './vex-demo/vex-demo.module';
 import { JSNativeDemoModule } from './js-native-demo/js-native-demo.module';
 
-import { App }  from './app';
+import { App } from './app';
 import { Home } from './home/home';
 import { routes } from './app.routes';
 import { InAppModalModule } from './home/in-app-plugin/index';
-
 
 @NgModule({
   imports: [
@@ -23,9 +23,10 @@ import { InAppModalModule } from './home/in-app-plugin/index';
     BootstrapDemoModule,
     VexDemoModule,
     JSNativeDemoModule,
-    InAppModalModule
+    InAppModalModule,
+    BrowserAnimationsModule
   ],
-  declarations: [ App, Home ],
-  bootstrap:    [ App ]
+  declarations: [App, Home],
+  bootstrap: [App]
 })
 export class AppModule { }

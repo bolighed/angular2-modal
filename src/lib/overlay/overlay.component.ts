@@ -35,21 +35,21 @@ export interface EmbedComponentConfig {
   },
   encapsulation: ViewEncapsulation.None,
   template:
-`<template #innerView></template>
-<template #template let-ctx>
-    <template [swapCmp]="ctx.component" [swapCmpBindings]="ctx.bindings" [swapCmpProjectables]="ctx.projectableNodes"></template>
-</template>
+  `<ng-template #innerView></ng-template>
+<ng-template #template let-ctx>
+    <ng-template [swapCmp]="ctx.component" [swapCmpBindings]="ctx.bindings" [swapCmpProjectables]="ctx.projectableNodes"></ng-template>
+</ng-template>
 `
 })
 export class ModalOverlay extends BaseDynamicComponent {
   private beforeDestroyHandlers: Array<() => Promise<void>>;
-  @ViewChild('innerView', {read: ViewContainerRef}) public innerVcr: ViewContainerRef;
+  @ViewChild('innerView', { read: ViewContainerRef }) public innerVcr: ViewContainerRef;
   @ViewChild('template') public template: TemplateRef<any>;
 
   constructor(private dialogRef: DialogRef<any>,
-              private vcr: ViewContainerRef,
-              el: ElementRef,
-              renderer: Renderer) {
+    private vcr: ViewContainerRef,
+    el: ElementRef,
+    renderer: Renderer) {
     super(el, renderer);
     this.activateAnimationListener();
   }
@@ -57,7 +57,7 @@ export class ModalOverlay extends BaseDynamicComponent {
   /**
    * @internal
    */
-  getProjectables<T> (
+  getProjectables<T>(
     content: string | TemplateRef<any> | Type<any>,
     bindings?: ResolvedReflectiveProvider[]): any[][] {
 
@@ -101,9 +101,9 @@ export class ModalOverlay extends BaseDynamicComponent {
       right: 0,
       'z-index': 1500
     };
-    Object.keys(style).forEach( k => this.setStyle(k, style[k]) );
+    Object.keys(style).forEach(k => this.setStyle(k, style[k]));
   }
-  
+
   insideElement(): void {
     const style = {
       position: 'absolute',
@@ -115,7 +115,7 @@ export class ModalOverlay extends BaseDynamicComponent {
       bottom: 0,
       right: 0
     };
-    Object.keys(style).forEach( k => this.setStyle(k, style[k]) );
+    Object.keys(style).forEach(k => this.setStyle(k, style[k]));
   }
 
   /**
@@ -129,7 +129,7 @@ export class ModalOverlay extends BaseDynamicComponent {
     let target: Element;
     const elListener = event => target = event.target as any;
     const docListener = event => {
-      if (this.dialogRef.context.isBlocking || !this.dialogRef.overlay.isTopMost(this.dialogRef) ) {
+      if (this.dialogRef.context.isBlocking || !this.dialogRef.overlay.isTopMost(this.dialogRef)) {
         return;
       }
 
@@ -145,7 +145,7 @@ export class ModalOverlay extends BaseDynamicComponent {
         if (current === element) {
           return;
         }
-      } while (current.parentNode && ( current = current.parentNode ));
+      } while (current.parentNode && (current = current.parentNode));
       this.dialogRef.dismiss();
     };
 
@@ -191,7 +191,7 @@ export class ModalOverlay extends BaseDynamicComponent {
         completer.resolve();
       };
 
-      Promise.all(this.beforeDestroyHandlers.map( fn => fn() ))
+      Promise.all(this.beforeDestroyHandlers.map(fn => fn()))
         .then(resolve)
         .catch(resolve);
 
@@ -214,7 +214,7 @@ export class ModalOverlay extends BaseDynamicComponent {
     }
     this.beforeDestroyHandlers.push(fn);
   }
-  
+
   documentKeypress(event: KeyboardEvent) {
     // check that this modal is the last in the stack.
     if (!this.dialogRef.overlay.isTopMost(this.dialogRef)) return;
